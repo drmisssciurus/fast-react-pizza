@@ -17,4 +17,12 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
-}
+  rules: {
+    'no-unused-vars': 'warn',
+    'react/prop-types': 'off', // Turns off prop-types validation
+    'react-refresh/only-export-components': [
+      'warn',
+      { allowConstantExport: true },
+    ],
+  },
+};
