@@ -10,8 +10,12 @@ import {
 import OrderItem from './OrderItem';
 import { useEffect } from 'react';
 import UpdateOrder from './UpdateOrder';
+import UpdateAddress from './UpdateAddress';
+import { useSelector } from 'react-redux';
+import { getUserAddress } from '../user/userSlice';
 
 function Order() {
+  const userAddress = useSelector(getUserAddress);
   const order = useLoaderData();
   const fetcher = useFetcher();
 
@@ -31,6 +35,7 @@ function Order() {
     orderPrice,
     estimatedDelivery,
     cart,
+    address,
   } = order;
   const deliveryIn = calcMinutesLeft(estimatedDelivery);
 
@@ -50,6 +55,7 @@ function Order() {
           </span>
         </div>
       </div>
+      <p>DA: {userAddress}</p>
 
       <div className='flex flex-wrap items-center justify-between gap-2 bg-stone-200 px-6 py-5'>
         <p className='font-medium'>
@@ -89,6 +95,7 @@ function Order() {
           To pay on delivery: {formatCurrency(orderPrice + priorityPrice)}
         </p>
       </div>
+      <UpdateAddress order={order} address={userAddress} />
       {!priority && <UpdateOrder order={order} />}
     </div>
   );
